@@ -1,0 +1,73 @@
+/* Tema pastel lilás e rosa — baseado na referência visual */
+:root{color-scheme:light;--ink:#342547;--ink-soft:#5e526f;--violet:#71409f;--lavender:#9a93f1;--pink:#e994e9;--sky:#bfe9ff;--page:#f4edfb;--line:#e5d8f1;--surface:rgba(255,255,255,.75)}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;overflow-x:hidden;background:linear-gradient(180deg,#eeeafd 0%,#f6ecfc 43%,#faeff9 100%);color:var(--ink);font:17px/1.72 system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{width:min(100%,1140px);margin:0 auto;padding:0 clamp(20px,5vw,66px) 5rem}
+header{position:relative;isolation:isolate;border:0;padding:clamp(66px,8vw,116px) 0 clamp(78px,8vw,104px);margin-bottom:68px;color:#39224f}
+header::before{content:"";position:absolute;z-index:-1;inset:0 calc(50% - 50vw);background:linear-gradient(160deg,#9a93f1 0%,#bc93ed 42%,#e994e9 100%)}
+header::after{content:"";position:absolute;left:calc(50% - 50vw);width:100vw;bottom:-36px;height:36px;background:linear-gradient(to bottom,#bfe9ff 0 34%,#f7c7ef 34% 69%,#e6a8e7 69% 100%)}
+header h1{max-width:19ch;margin:.48em 0 .44em;color:#322043;font-size:clamp(2.8rem,6.5vw,5.85rem);font-weight:320;line-height:1.09;letter-spacing:-.056em;text-wrap:balance}
+header p{font-size:1.03rem;line-height:1.68;margin:1.15rem 0}
+header small{display:block;color:#493456;font-size:.9rem;max-width:80ch}
+header strong{font-weight:700}
+h1,h2,h3{line-height:1.19;font-family:inherit}
+h2{font-size:clamp(1.8rem,3.2vw,2.4rem);letter-spacing:-.035em;color:#49305f;margin:0 0 .8em;font-weight:680}
+h3{font-size:1.25rem;color:#694186;margin:1.75em 0 .55em;font-weight:700}
+section{scroll-margin-top:28px;margin:0 0 28px;padding:clamp(22px,4.2vw,45px);border:1px solid rgba(119,81,158,.13);border-top:1px solid rgba(119,81,158,.13);border-radius:24px;background:var(--surface);box-shadow:0 16px 50px rgba(77,45,110,.055)}
+section:first-of-type{border-top:4px solid #b58ce9}
+section p:first-child{margin-top:0}
+p,li{color:var(--ink)}
+li{margin:.42rem 0}
+a{color:#67409b;text-underline-offset:.18em;text-decoration-thickness:.08em}
+a:hover{color:#472574}
+a:focus-visible,summary:focus-visible,select:focus-visible{outline:3px solid #67409b;outline-offset:4px}
+.tag{display:inline-flex;align-items:center;margin:0 .5rem .6rem 0;padding:.3rem .82rem;border:1px solid rgba(66,35,91,.24);border-radius:999px;background:rgba(255,255,255,.36);color:#39244f;font-size:.82rem;font-weight:650;letter-spacing:.025em}
+header a{color:#3c2657;font-weight:700}
+header a:hover{color:#27163b}
+.section-nav{display:flex;flex-wrap:wrap;gap:.6rem;margin:0 0 28px}
+.section-nav a{display:inline-flex;align-items:center;justify-content:center;padding:.55rem .92rem;border:1px solid #dfccf0;border-radius:999px;background:rgba(255,255,255,.68);color:#523369;text-decoration:none;font-size:.86rem;font-weight:650;transition:background .2s ease,transform .2s ease}
+.section-nav a:hover{background:#fff;transform:translateY(-2px)}
+figure{margin:1.65rem 0 2rem;padding:clamp(10px,2vw,18px);border-radius:18px;background:#fff;border:1px solid #eadff1}
+img{display:block;width:100%;height:auto;border-radius:10px}
+figcaption{margin:.8rem .3rem .2rem;color:var(--ink-soft);font-size:.9rem}
+.scroll,pre{overflow-x:auto}
+.scroll{border:1px solid #e6d8ef;border-radius:14px;background:#fff}
+table{border-collapse:collapse;width:100%;font-size:.88rem}
+th,td{text-align:right;padding:.75rem .82rem;border-bottom:1px solid #eadff0;white-space:nowrap}
+th:first-child,td:first-child{text-align:left;font-weight:660}
+thead th{background:#f0e3fb;color:#4a3062;font-weight:720}
+tbody tr:nth-child(even){background:#fbf7fd}
+tbody tr:hover{background:#f3eafb}
+tr:last-child td,tr:last-child th{border-bottom:none}
+pre{margin:1.5rem 0;padding:1.3rem 1.45rem;background:#362649;color:#f8edff;border:1px solid #4e3661;border-radius:16px;font:.91rem/1.6 ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}
+pre code{color:inherit}
+details{margin-top:2rem;padding:1.1rem 1.3rem;border-radius:16px;background:#f1e8fa;border:1px solid #e3d3f1}
+summary{color:#51316d;font-weight:750;cursor:pointer}
+details[open] summary{margin-bottom:1rem}
+label,select{font:inherit}
+select{margin:.6rem 0 1rem;padding:.35rem .5rem;color:var(--ink);background:#fff;border:1px solid #b99bce;border-radius:9px}
+@media(max-width:640px){body{font-size:15.5px;line-height:1.66}main{padding-inline:18px}header{padding:64px 0 74px;margin-bottom:62px}header h1{font-size:clamp(2.55rem,10vw,4.5rem);letter-spacing:-.05em}header small{font-size:.81rem}header::after{height:30px;bottom:-30px}section{border-radius:19px;margin-bottom:18px;padding:22px 18px}.section-nav{gap:.48rem}.section-nav a{padding:.43rem .68rem;font-size:.79rem}h2{font-size:1.7rem}table{font-size:.8rem}th,td{padding:.66rem .58rem}pre{font-size:.76rem;padding:1rem}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.section-nav a{transition:none}}
+
+
+/* Fundo padrão: gradiente azul-gelo e lilás com movimento quase imperceptível.
+   Os temas secretos dos autores permanecem com seus próprios fundos. */
+body:not(.theme-spider):not(.theme-music){
+  background-image:linear-gradient(125deg,
+    #f7f4ff 0%, #eaf4ff 25%, #f1eafa 49%, #e8f2ff 74%, #f9f1fe 100%);
+  background-size:240% 240%;
+  background-position:7% 18%;
+  animation:pastel-drift 36s ease-in-out infinite alternate;
+}
+@keyframes pastel-drift{
+  0%{background-position:7% 18%}
+  50%{background-position:62% 72%}
+  100%{background-position:95% 22%}
+}
+@media(prefers-reduced-motion:reduce){
+  body:not(.theme-spider):not(.theme-music){
+    animation:none;
+    background-position:50% 50%;
+  }
+}

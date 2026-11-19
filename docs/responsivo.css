@@ -1,0 +1,88 @@
+/* Ajustes responsivos para o artigo e os três temas visuais.
+   Breakpoints: tablet (1024px), celular (767px), celular pequeno (480/360px). */
+html,body{max-width:100%;overflow-x:clip}
+main,header,section,figure,details{min-width:0}
+header h1,section h2,section h3{overflow-wrap:break-word}
+section p,section li,figcaption{overflow-wrap:anywhere}
+figure img{display:block;width:100%;max-width:100%;height:auto;object-fit:contain}
+.figure-open{display:block;border-radius:12px;cursor:zoom-in}
+.figure-open:focus-visible{outline:3px solid #6a4696;outline-offset:4px}
+.zoom-hint{display:block;margin-top:.35rem;font-size:.85rem;font-weight:650;color:#715589}
+.scroll{max-width:100%;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+pre{max-width:100%;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+#serie tr[hidden]{display:none}
+
+/* Tablets: cards, menu e títulos sem cortes. */
+@media (max-width:1024px){
+  main{width:100%;padding-inline:clamp(18px,4vw,42px)}
+  header h1{font-size:clamp(2.65rem,6.2vw,4.65rem)}
+  header::before,header::after{max-width:none}
+  .section-nav{max-width:100%}
+  section{padding:clamp(22px,3vw,34px)}
+  .scroll table{min-width:100%}
+  #serie{min-width:740px}
+}
+
+/* Celulares e tablets estreitos: botões touch, navegação rolável e tabelas com swipe. */
+@media (max-width:767px){
+  main{padding-inline:clamp(15px,4vw,24px);padding-bottom:3rem}
+  header{padding-top:clamp(46px,9vw,74px);padding-bottom:66px;margin-bottom:63px}
+  header h1{font-size:clamp(2.25rem,8.4vw,3.25rem);line-height:1.12;letter-spacing:-.044em;max-width:100%}
+  header p{font-size:1rem;line-height:1.52}
+  header small{line-height:1.55;font-size:.86rem}
+  header .authors strong{display:flex;align-items:center;flex-wrap:wrap;column-gap:.25rem;row-gap:.18rem}
+  header .author-switch{min-height:44px;padding:.45rem .5rem;white-space:normal;text-align:left;max-width:100%;line-height:1.35;touch-action:manipulation}
+  .author-separator{padding-inline:.06rem}
+  .theme-hint{font-size:.84rem!important;line-height:1.5!important}
+  .section-nav{flex-wrap:nowrap;gap:.5rem;overflow-x:auto;overflow-y:hidden;scrollbar-width:thin;scroll-snap-type:x proximity;scroll-padding-inline:3px;padding:2px 2px 10px;margin-bottom:16px;-webkit-overflow-scrolling:touch;overscroll-behavior-inline:contain}
+  .section-nav a{flex:0 0 auto;min-height:44px;padding:.65rem .85rem;white-space:nowrap;scroll-snap-align:start;font-size:.85rem}
+  section{border-radius:18px;margin-bottom:18px;padding:23px 18px}
+  h2{font-size:clamp(1.55rem,5.5vw,1.95rem)}
+  h3{font-size:1.15rem}
+  figure{padding:10px;margin:1.2rem 0 1.6rem;border-radius:14px}
+  figcaption{font-size:.83rem;line-height:1.55}
+  .scroll{position:relative;border-radius:12px}
+  .scroll table{width:max-content;min-width:100%;font-size:.81rem}
+  #serie{min-width:740px}
+  .scroll th,.scroll td{padding:.66rem .65rem}
+  /* Ano sempre visível enquanto a tabela detalhada é deslizada. */
+  #serie tr > :first-child{position:sticky;left:0;z-index:1;background:#fbf7fd;box-shadow:1px 0 0 #e4d9ed}
+  #serie tbody tr:nth-child(even) > :first-child{background:#f5edfa}
+  #serie thead tr > :first-child{z-index:2;background:#f0e3fb}
+  body.theme-spider #serie tbody tr > :first-child{background:#f4f8fe}
+  body.theme-spider #serie tbody tr:nth-child(even) > :first-child{background:#eaf3ff}
+  body.theme-spider #serie thead tr > :first-child{background:#e4efff}
+  body.theme-music #serie tbody tr > :first-child{background:#fff9fc}
+  body.theme-music #serie tbody tr:nth-child(even) > :first-child{background:#fceaf6}
+  body.theme-music #serie thead tr > :first-child{background:#fbe4f1}
+  pre{padding:1rem;font-size:.78rem;line-height:1.55;border-radius:12px}
+  details{padding:1rem}
+  details summary{min-height:44px;display:list-item;align-content:center}
+  select{max-width:100%;min-height:44px;padding:.5rem .65rem;font-size:1rem}
+  .music-sparkles span{font-size:clamp(1.7rem,9vw,3.7rem);opacity:.2}
+}
+
+/* Telefones compactos: elementos confortáveis sem rolagem horizontal na página. */
+@media (max-width:480px){
+  header h1{font-size:clamp(2.12rem,9vw,2.7rem);line-height:1.14}
+  header small{font-size:.8rem}
+  .tag{font-size:.75rem;padding:.24rem .55rem}
+  section{padding:20px 15px;border-radius:16px}
+  figure{padding:8px}
+  .section-nav a{font-size:.81rem}
+  .author-switch{font-size:.97rem!important}
+  .theme-hint{font-size:.78rem!important}
+  .scroll table{font-size:.79rem}
+  figcaption{font-size:.8rem}
+}
+@media (max-width:360px){
+  main{padding-inline:12px}
+  header h1{font-size:2.05rem;letter-spacing:-.038em}
+  .section-nav a{padding-inline:.67rem}
+}
+@media (hover:none){
+  .section-nav a:hover,.author-switch:hover{transform:none}
+}
+@media (prefers-reduced-motion:reduce){
+  .section-nav{scroll-behavior:auto;scroll-snap-type:none}
+}
