@@ -49,3 +49,25 @@ label,select{font:inherit}
 select{margin:.6rem 0 1rem;padding:.35rem .5rem;color:var(--ink);background:#fff;border:1px solid #b99bce;border-radius:9px}
 @media(max-width:640px){body{font-size:15.5px;line-height:1.66}main{padding-inline:18px}header{padding:64px 0 74px;margin-bottom:62px}header h1{font-size:clamp(2.55rem,10vw,4.5rem);letter-spacing:-.05em}header small{font-size:.81rem}header::after{height:30px;bottom:-30px}section{border-radius:19px;margin-bottom:18px;padding:22px 18px}.section-nav{gap:.48rem}.section-nav a{padding:.43rem .68rem;font-size:.79rem}h2{font-size:1.7rem}table{font-size:.8rem}th,td{padding:.66rem .58rem}pre{font-size:.76rem;padding:1rem}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.section-nav a{transition:none}}
+
+
+/* Fundo padrão: gradiente azul-gelo e lilás com movimento quase imperceptível.
+   Os temas secretos dos autores permanecem com seus próprios fundos. */
+body:not(.theme-spider):not(.theme-music){
+  background-image:linear-gradient(125deg,
+    #f7f4ff 0%, #eaf4ff 25%, #f1eafa 49%, #e8f2ff 74%, #f9f1fe 100%);
+  background-size:240% 240%;
+  background-position:7% 18%;
+  animation:pastel-drift 36s ease-in-out infinite alternate;
+}
+@keyframes pastel-drift{
+  0%{background-position:7% 18%}
+  50%{background-position:62% 72%}
+  100%{background-position:95% 22%}
+}
+@media(prefers-reduced-motion:reduce){
+  body:not(.theme-spider):not(.theme-music){
+    animation:none;
+    background-position:50% 50%;
+  }
+}
