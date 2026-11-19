@@ -431,23 +431,7 @@ main{
 main > header, main > nav, main > section{min-width:0}
 main > section{scroll-margin-top:112px}
 main > section p,main > section li{overflow-wrap:break-word}
-/* Cada cartão usa toda a largura disponível para o texto acadêmico. */
-main > section > p{width:100%;max-width:none}
-main > section p,
-main > section li{
-  max-width:none;
-  text-align:justify;
-  text-justify:inter-word;
-  hyphens:auto;
-  overflow-wrap:break-word;
-}
-main > section .academic-references li{hyphens:auto}
-@media(max-width:767px){
-  main > section p, main > section li{
-    text-align:left;
-    hyphens:auto;
-  }
-}
+main > section > p{max-width:92ch}
 main > section pre,main > section .scroll,main > section figure{
   max-width:100%;
 }
