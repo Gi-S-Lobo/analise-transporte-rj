@@ -333,9 +333,9 @@ const cmds=document.querySelector('#comandos');cmds.textContent='git clone '+url
 }
 </script>
 <script>
-/* Ativação dos temas secretos ao clicar nos nomes dos autores.
-   Clicar novamente no mesmo nome restaura o tema lilás/rosa.
-   Clicar no outro nome troca diretamente de tema. */
+/* Easter eggs acessíveis: música ORIGINAL criada por síntese no navegador.
+   Não reproduz nem utiliza arquivos do jogo Spider-Man PS4.
+   O áudio começa somente com clique do visitante, com opção de pausa. */
 (() => {
   "use strict";
   const buttons = {
@@ -343,14 +343,162 @@ const cmds=document.querySelector('#comandos');cmds.textContent='git clone '+url
     music: document.getElementById("giovanna-theme")
   };
   const hint = document.getElementById("theme-hint");
-  if (!buttons.spider || !buttons.music) return;
+  const player = document.getElementById("theme-audio-bar");
+  const playerTitle = document.getElementById("theme-audio-title");
+  const toggle = document.getElementById("theme-audio-toggle");
+  if (!buttons.spider || !buttons.music || !toggle) return;
+
   let current = null;
+  let audioContext = null;
+  let trackBus = null;
+  let loopTimer = null;
+  let generation = 0;
+  let playing = false;
+  const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+
+  /* Duas melodias originais, sem arquivos externos nem bibliotecas de terceiros.
+     Cada item da melodia: deslocamento em tempos, nota MIDI e duração em tempos. */
+  const themes = {
+    spider: {
+      name: "Aventura urbana · trilha original",
+      bpm: 104,
+      lead: [[0,62,.6],[.75,65,.34],[1.25,69,.65],[2.2,74,1.1],[3.5,72,.35],
+             [4,70,.75],[5.15,69,.45],[6,65,.68],[7,67,.7],
+             [8,69,.75],[9,72,.5],[9.75,74,.8],[11,77,.75],
+             [12,74,.55],[13,72,.5],[14,69,.55],[15,65,.7]],
+      chords: [[0,[50,57,62]],[4,[46,53,58]],[8,[41,48,53]],[12,[48,55,60]]],
+      bass: [[0,38],[2,38],[4,34],[6,34],[8,29],[10,29],[12,36],[14,36]]
+    },
+    music: {
+      name: "Piano ao entardecer · trilha original",
+      bpm: 72,
+      lead: [[0,74,.95],[1.5,78,.8],[2.5,81,1.35],
+             [4,78,.82],[5.5,76,.78],[6.5,74,1.3],
+             [8,71,.92],[9.5,74,.75],[10.5,78,1.4],
+             [12,76,.78],[13.25,74,.85],[14.25,73,1.35]],
+      chords: [[0,[50,54,57]],[4,[47,50,54]],[8,[43,47,50]],[12,[45,52,57]]],
+      bass: [[0,38],[4,35],[8,31],[12,33]]
+    }
+  };
+
+  function note(midi, at, seconds, volume, timbre, bus) {
+    const frequency = 440 * Math.pow(2, (midi - 69) / 12);
+    const envelope = audioContext.createGain();
+    const attack = timbre === "piano" ? .011 : .035;
+    const release = Math.max(.22, seconds);
+    envelope.gain.setValueAtTime(.0001, at);
+    envelope.gain.exponentialRampToValueAtTime(Math.max(.0002, volume), at + attack);
+    envelope.gain.exponentialRampToValueAtTime(.0001, at + release);
+    envelope.connect(bus);
+
+    const primary = audioContext.createOscillator();
+    primary.type = timbre === "piano" ? "sine" : "triangle";
+    primary.frequency.setValueAtTime(frequency, at);
+    primary.connect(envelope);
+    primary.start(at);
+    primary.stop(at + release + .02);
+
+    const harmonic = audioContext.createOscillator();
+    const overtone = audioContext.createGain();
+    harmonic.type = "sine";
+    harmonic.frequency.setValueAtTime(frequency * (timbre === "piano" ? 2 : 1.005), at);
+    overtone.gain.value = timbre === "piano" ? .14 : .1;
+    harmonic.connect(overtone);
+    overtone.connect(envelope);
+    harmonic.start(at);
+    harmonic.stop(at + release + .02);
+  }
+
+  function schedulePhrase(name, at, bus) {
+    const pattern = themes[name];
+    const beat = 60 / pattern.bpm;
+    const piano = name === "music";
+    const timbre = piano ? "piano" : "hero";
+
+    pattern.chords.forEach(([offset, chord]) => {
+      chord.forEach((pitch, i) => note(pitch + 12, at + offset * beat, (piano ? 3.4 : 2.4) * beat,
+        piano ? .013 : .019, timbre, bus));
+    });
+    pattern.bass.forEach(([offset, pitch]) => {
+      note(pitch, at + offset * beat, (piano ? 2.5 : 1.4) * beat,
+        piano ? .022 : .032, timbre, bus);
+    });
+    pattern.lead.forEach(([offset, pitch, duration]) => {
+      note(pitch, at + offset * beat, Math.max(.35, duration * beat + (piano ? .3 : .08)),
+        piano ? .061 : .072, timbre, bus);
+    });
+    return 16 * beat;
+  }
+
+  function stopSound() {
+    generation++;
+    if (loopTimer !== null) {
+      window.clearTimeout(loopTimer);
+      loopTimer = null;
+    }
+    if (trackBus && audioContext) {
+      const oldBus = trackBus;
+      const now = audioContext.currentTime;
+      oldBus.gain.cancelScheduledValues(now);
+      oldBus.gain.setValueAtTime(Math.max(.0001, oldBus.gain.value), now);
+      oldBus.gain.linearRampToValueAtTime(0, now + .16);
+      window.setTimeout(() => { try { oldBus.disconnect(); } catch (_) {} }, 350);
+      trackBus = null;
+    }
+    playing = false;
+    renderAudioControls();
+  }
+
+  function renderAudioControls() {
+    if (player) player.hidden = current === null;
+    if (current && playerTitle) playerTitle.textContent = themes[current].name;
+    toggle.textContent = playing ? "🔇 Pausar trilha" : "♫ Tocar trilha";
+    toggle.setAttribute("aria-pressed", String(playing));
+    toggle.disabled = !AudioContextClass;
+    if (!AudioContextClass && current && playerTitle) {
+      playerTitle.textContent = "Este navegador não suporta áudio gerado pelo site";
+    }
+  }
+
+  function startSound() {
+    if (!current || !AudioContextClass) {
+      renderAudioControls();
+      return;
+    }
+    /* Criado/resumido diretamente após o clique para funcionar no Safari iOS. */
+    if (!audioContext) audioContext = new AudioContextClass();
+    if (audioContext.state === "suspended") {
+      audioContext.resume().catch(() => {
+        stopSound();
+      });
+    }
+    const bus = audioContext.createGain();
+    bus.gain.setValueAtTime(0, audioContext.currentTime);
+    bus.gain.linearRampToValueAtTime(.2, audioContext.currentTime + .23);
+    bus.connect(audioContext.destination);
+    trackBus = bus;
+    playing = true;
+    const myGeneration = ++generation;
+    const themeName = current;
+    let nextTime = audioContext.currentTime + .1;
+
+    function loop() {
+      if (!playing || myGeneration !== generation || document.hidden) return;
+      nextTime = Math.max(nextTime, audioContext.currentTime + .08);
+      const length = schedulePhrase(themeName, nextTime, bus);
+      nextTime += length;
+      const delay = Math.max(100, (nextTime - audioContext.currentTime - .3) * 1000);
+      loopTimer = window.setTimeout(loop, delay);
+    }
+    loop();
+    renderAudioControls();
+  }
 
   function applyTheme(selected) {
+    stopSound();
     current = current === selected ? null : selected;
     document.body.classList.toggle("theme-spider", current === "spider");
     document.body.classList.toggle("theme-music", current === "music");
-
     Object.entries(buttons).forEach(([key, button]) => {
       const active = current === key;
       const owner = key === "spider" ? "Theo" : "Giovanna";
@@ -359,21 +507,31 @@ const cmds=document.querySelector('#comandos');cmds.textContent='git clone '+url
       button.setAttribute("aria-label", active
         ? "Desativar tema " + label + " de " + owner
         : "Ativar tema " + label + " de " + owner);
-      button.title = active ? "Clique novamente para voltar ao original" : "Clique para ativar o tema secreto";
+      button.title = active ? "Clique novamente para voltar ao tema original" : "Clique para ativar o tema secreto";
     });
-
     if (hint) {
       hint.textContent = current === "spider"
-        ? "🕸️ Modo Theo ativado! Clique em Theo novamente para voltar ao tema original."
+        ? "🕸️ Modo Theo ativado! Clique no nome novamente para voltar ao original."
         : current === "music"
-          ? "♫ Modo Giovanna ativado! Clique em Giovanna novamente para voltar ao tema original."
+          ? "♫ Modo Giovanna ativado! Clique no nome novamente para voltar ao original."
           : "Dica: clique no nome de cada autor para descobrir um tema secreto.";
     }
+    if (current) startSound();
+    renderAudioControls();
   }
 
   buttons.spider.addEventListener("click", () => applyTheme("spider"));
   buttons.music.addEventListener("click", () => applyTheme("music"));
+  toggle.addEventListener("click", () => {
+    if (!current) return;
+    if (playing) stopSound();
+    else startSound();
+  });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden && playing) stopSound();
+  });
+  window.addEventListener("pagehide", stopSound);
+  renderAudioControls();
 })();
-
 </script>
 </html>
