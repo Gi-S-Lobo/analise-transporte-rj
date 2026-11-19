@@ -301,12 +301,68 @@ body.theme-spider .theme-audio-toggle{color:#10396f;border-color:#bad4ff}
 }
 @media(prefers-reduced-motion:reduce){.hero-city,.piano-scene{animation:none}}
 
+
+/* Refinamento: símbolos discretos, sem excesso de elementos. */
+.hero-city .city-layer,.piano-scene .keys,.hero-caption,.piano-caption,.theme-audio-bar{display:none!important}
+.hero-city .web-emblem{width:clamp(72px,10vw,120px)!important;top:7%!important;right:4%!important;opacity:.22!important;border-width:1px!important;box-shadow:none!important}
+.hero-city .web-emblem::before{font-size:clamp(2rem,4vw,3rem)!important;opacity:.65}
+.piano-scene .staff{width:clamp(110px,20vw,220px)!important;height:95px!important;opacity:.16!important}
+.piano-scene .treble{font-size:clamp(3.5rem,8vw,6rem)!important;opacity:.4}
+body.theme-music .music-sparkles span:not(:first-child){display:none!important}
+body.theme-music .music-sparkles span:first-child{opacity:.18}
+body.theme-spider header::before{background:linear-gradient(125deg,#16458c,#bc344e 100%)!important}
+body.theme-music header::before{background:linear-gradient(125deg,#c29ce2,#f3b6ce 100%)!important}
+/* Modo de conforto visual: pouca estimulação, sem música nem animações. */
+.comfort-button{min-height:44px;cursor:pointer;font:inherit;font-size:.85rem;font-weight:700;padding:.55rem .9rem;border-radius:999px;border:1px solid #947eae;background:#fff;color:#493064;touch-action:manipulation}
+.comfort-button[aria-pressed=true]{background:#dceaff;color:#173e60;border-color:#7d9bbd}
+.comfort-button:focus-visible,.graph-tools button:focus-visible{outline:3px solid #4b74bb;outline-offset:3px}
+body.comfort-mode{background:#f1f5fb!important;color:#183249!important}
+body.comfort-mode header::before{background:#dce8f5!important}
+body.comfort-mode header::after{background:#adc8e3!important}
+body.comfort-mode header,body.comfort-mode header h1,body.comfort-mode header p,body.comfort-mode header small,body.comfort-mode header .tag,body.comfort-mode header .author-switch{color:#1a3349!important}
+body.comfort-mode header .tag{background:#fff!important;border-color:#91aecb!important}
+body.comfort-mode section{background:#fff!important;color:#1a3349!important;border-color:#b8cce2!important;box-shadow:none!important}
+body.comfort-mode section h2,body.comfort-mode section h3,body.comfort-mode section p,body.comfort-mode section li,body.comfort-mode section td{color:#1a3349!important}
+body.comfort-mode .hero-city,body.comfort-mode .piano-scene,body.comfort-mode .music-sparkles{display:none!important}
+body.comfort-mode .section-nav a{background:#fff!important;color:#1c426b!important;border-color:#adc4d8!important}
+body.comfort-mode thead th{background:#e9f2fb!important;color:#173d60!important}
+body.comfort-mode *,body.comfort-mode *::before,body.comfort-mode *::after{animation:none!important;transition:none!important}
+html.comfort-page{scroll-behavior:auto!important}
+body.comfort-mode .reveal-target{opacity:1!important;transform:none!important}
+/* Seções surgem progressivamente na rolagem, se movimento for permitido. */
+.reveals-enabled .reveal-target{opacity:0;transform:translateY(12px);transition:opacity .45s ease,transform .45s ease}
+.reveals-enabled .reveal-target.is-visible{opacity:1;transform:none}
+/* Ampliação de gráficos: pop-up responsivo com zoom, ESC e foco. */
+.graph-dialog{width:min(1100px,96vw);max-width:96vw;max-height:94vh;max-height:94dvh;padding:0;border-radius:18px;border:1px solid #d3c8e7;background:#fff;color:#25354a;box-shadow:0 25px 85px #1d173d45;overflow:hidden}
+.graph-dialog::backdrop{background:rgba(20,23,43,.74)}
+.graph-layout{display:flex;flex-direction:column;max-height:94vh;max-height:94dvh;min-height:0}
+.graph-tools{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;padding:10px 14px;background:#f7f4fb;border-bottom:1px solid #e3ddeb}
+.graph-tools .graph-actions{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.graph-tools strong{font-size:.95rem}
+.graph-tools button{min-height:44px;min-width:44px;padding:8px 12px;border-radius:10px;border:1px solid #cdbce1;background:#fff;color:#3e2d58;font:inherit;cursor:pointer}
+.graph-zoom-label{font-size:.85rem;min-width:52px;text-align:center;font-variant-numeric:tabular-nums}
+.graph-view{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:#fff;padding:10px}
+.graph-view img{display:block;width:100%;max-width:none!important;height:auto;border-radius:0}
+.graph-description{margin:0;padding:10px 14px;border-top:1px solid #e6ddeb;font-size:.83rem;background:#fbfafd;color:#534661}
+.figure-open{cursor:zoom-in}
+@media(max-width:767px){
+ .hero-city .web-emblem{width:75px!important;right:-2%!important;opacity:.15!important}
+ .piano-scene .staff{width:145px!important;right:-4%!important;opacity:.1!important}
+ .graph-dialog{width:100vw;max-width:100vw;max-height:100dvh;border-radius:12px}
+ .graph-layout{max-height:95dvh}
+ .graph-tools{padding:8px}
+ .graph-tools strong{flex-basis:100%}
+ .comfort-button{flex:0 0 auto}
+}
+@media(prefers-reduced-motion:reduce){.reveals-enabled .reveal-target{opacity:1!important;transform:none!important;transition:none!important}}
+@media print{.reveal-target{opacity:1!important;transform:none!important}.graph-dialog,.comfort-button{display:none!important}}
+
 </style>
 
 
 
-<main><header><div class="music-sparkles" aria-hidden="true"><span>♪</span><span>♫</span><span>♬</span><span>♩</span></div><div class="hero-city" aria-hidden="true"><div class="web-emblem"></div><div class="city-layer"></div></div><div class="piano-scene" aria-hidden="true"><div class="staff"></div><span class="treble">𝄞</span><div class="keys"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="hero-caption">🕸 Herói da vizinhança</div><div class="piano-caption">♫ Melodias ao luar</div><span class="tag">Tabela 440 · Data.Rio</span> <span class="tag">1995–2025</span><h1>Movimento de passageiros no município do Rio de Janeiro, 1995–2025</h1><p class="authors"><strong><button type="button" class="author-switch" id="giovanna-theme" aria-pressed="false" aria-label="Ativar tema musical de Giovanna" title="Clique para ativar o tema musical">Giovanna Sigette Lobo</button> <span class="author-separator">e</span> <button type="button" class="author-switch" id="theo-theme" aria-pressed="false" aria-label="Ativar tema inspirado no Homem-Aranha de Theo" title="Clique para ativar o tema inspirado no Homem-Aranha">Theo Cubas Reis</button></strong><br>Orientação de Alexandre Neves Louzada</p><p id="theme-hint" class="theme-hint" aria-live="polite">Dica: clique no nome de cada autor para descobrir um tema secreto.</p><div class="theme-audio-bar" id="theme-audio-bar" hidden><span class="theme-audio-title" id="theme-audio-title">Trilha original</span><button type="button" class="theme-audio-toggle" id="theme-audio-toggle" aria-pressed="true">♫ Pausar trilha</button><span class="theme-audio-note">Áudio original • volume suave</span></div><small>Centro Universitário La Salle do Rio de Janeiro (UniLaSalle-RJ) · Sistemas de Informação · 6º período · 2026.2<br>Linguagem de Programação (Análise e Visualização de Dados com Python)</small><p><a id="repo" hidden>Repositório no GitHub</a></p></header>
-<nav class="section-nav" aria-label="Navegação do artigo"><a href="#resumo">Resumo</a><a href="#introducao">Introdução</a><a href="#metodologia">Metodologia</a><a href="#resultados">Resultados</a><a href="#conclusao">Conclusão</a><a href="#dados-fair">Dados e FAIR</a><a href="#referencias">Referências</a></nav>
+<main><header><div class="music-sparkles" aria-hidden="true"><span>♪</span><span>♫</span><span>♬</span><span>♩</span></div><div class="hero-city" aria-hidden="true"><div class="web-emblem"></div><div class="city-layer"></div></div><div class="piano-scene" aria-hidden="true"><div class="staff"></div><span class="treble">𝄞</span><div class="keys"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div></div><div class="hero-caption">🕸 Herói da vizinhança</div><div class="piano-caption">♫ Melodias ao luar</div><span class="tag">Tabela 440 · Data.Rio</span> <span class="tag">1995–2025</span><h1>Movimento de passageiros no município do Rio de Janeiro, 1995–2025</h1><p class="authors"><strong><button type="button" class="author-switch" id="giovanna-theme" aria-pressed="false" aria-label="Ativar tema musical de Giovanna" title="Clique para ativar o tema musical">Giovanna Sigette Lobo</button> <span class="author-separator">e</span> <button type="button" class="author-switch" id="theo-theme" aria-pressed="false" aria-label="Ativar tema inspirado no Homem-Aranha de Theo" title="Clique para ativar o tema inspirado no Homem-Aranha">Theo Cubas Reis</button></strong><br>Orientação de Alexandre Neves Louzada</p><p id="theme-hint" class="theme-hint" aria-live="polite">Dica: clique no nome de cada autor para descobrir um tema secreto.</p><small>Centro Universitário La Salle do Rio de Janeiro (UniLaSalle-RJ) · Sistemas de Informação · 6º período · 2026.2<br>Linguagem de Programação (Análise e Visualização de Dados com Python)</small><p><a id="repo" hidden>Repositório no GitHub</a></p></header>
+<nav class="section-nav" aria-label="Navegação do artigo"><a href="#resumo">Resumo</a><a href="#introducao">Introdução</a><a href="#metodologia">Metodologia</a><a href="#resultados">Resultados</a><a href="#conclusao">Conclusão</a><a href="#dados-fair">Dados e FAIR</a><a href="#referencias">Referências</a><button type="button" class="comfort-button" id="comfort-toggle" aria-pressed="false" title="Reduzir animações, sons e distrações">Modo conforto visual</button></nav>
 <section id="resumo"><h2>Resumo</h2><p>Como mudou o peso dos ônibus no movimento de passageiros do Rio de Janeiro e quais modais recuperaram o volume registrado em 2019? O estudo usa a Tabela 440 do Data.Rio para acompanhar seis séries anuais entre 1995 e 2025. A planilha original foi tratada em Python, mantendo a unidade de milhares de passageiros e as lacunas documentadas para o bonde de Santa Teresa. A comparação combina volumes absolutos, participações em anos com cobertura completa e índices relativos a 2019. Os ônibus mantiveram o maior movimento ao longo da série, mas sua participação caiu de 84,7% em 1995 para 68,1% em 2025. No mesmo intervalo, o metrô passou de 6,0% para 18,9%. Em 2020, todos os modais registraram queda frente ao ano anterior. Em 2025, apenas o bonde e o transporte aeroviário superaram seus volumes de 2019. Os resultados mostram como o crescimento relativo de um modal pode coexistir com um volume ainda inferior ao de anos anteriores. A agregação anual permite descrever essas diferenças, mas impede identificar trajetos individuais ou atribuir as mudanças a uma causa específica.</p><p><strong>Palavras-chave</strong> · Mobilidade urbana, transporte de passageiros, Rio de Janeiro, séries temporais, dados abertos.</p></section>
 <section id="introducao"><h2>1. Introdução</h2><p>A contagem anual ajuda a dimensionar o uso de cada sistema de transporte. Um modal pode ganhar participação enquanto perde passageiros, caso os demais recuem mais. Para distinguir esses movimentos, examinamos três perguntas.</p><ol><li>Como evoluiu o volume de passageiros em cada modal?</li><li>Como mudou a participação dos modais entre 1995 e 2025?</li><li>Quais modais superaram em 2025 o volume de 2019, após a queda de 2020?</li></ol></section>
 <section id="metodologia"><h2>2. Metodologia e pipeline de dados</h2><p>A aba T 440 do arquivo XLS contém uma linha por ano e seis séries em milhares de passageiros. O ETL lê a planilha binária com xlrd e pandas, identifica as linhas com ano numérico, verifica a sequência de 1995 a 2025, converte os volumes para números decimais e grava CSV.GZ em UTF-8. Não há imputação. O bonde apresenta três valores indisponíveis entre a interrupção de agosto de 2011 e a retomada de julho de 2015.</p><pre><code>total = dados.sum(axis=1, min_count=6)
@@ -321,6 +377,18 @@ indice = dados.div(dados.loc[2019]).mul(100)</code></pre><p>A participação exi
 python -m src.etl
 python -m src.figuras</code></pre></section>
 <section id="referencias"><h2>6. Referências</h2><ul><li>Data.Rio. (2026). <a href="https://www.data.rio/documents/5d5849bf28bf4f689214f890e3f4ac04/about">Tabela 440: movimento de passageiros no município do Rio de Janeiro entre 1995 e 2025</a> [Conjunto de dados].</li><li>The pandas development team. (s.d.). <a href="https://pandas.pydata.org/docs/">pandas documentation</a>.</li><li>Wilkinson, M. D., et al. (2016). The FAIR Guiding Principles for scientific data management and stewardship. <i>Scientific Data, 3</i>, 160018. <a href="https://doi.org/10.1038/sdata.2016.18">doi.org/10.1038/sdata.2016.18</a>.</li></ul></section></main>
+<dialog class="graph-dialog" id="graph-dialog" aria-labelledby="graph-dialog-title" aria-describedby="graph-description">
+  <div class="graph-layout"><div class="graph-tools"><strong id="graph-dialog-title">Visualizar gráfico</strong>
+    <div class="graph-actions">
+      <button type="button" id="graph-zoom-out" aria-label="Diminuir o gráfico">−</button>
+      <span class="graph-zoom-label" id="graph-zoom-label" aria-live="polite">100%</span>
+      <button type="button" id="graph-zoom-in" aria-label="Ampliar o gráfico">+</button>
+      <button type="button" id="graph-dialog-close" aria-label="Fechar o gráfico">Fechar ✕</button>
+    </div></div>
+    <div class="graph-view" id="graph-view"><img id="graph-image" alt=""></div>
+    <p class="graph-description" id="graph-description">Arraste para explorar o gráfico ampliado. <a id="graph-open-original" target="_blank" rel="noopener">Abrir imagem original</a></p>
+  </div>
+</dialog>
 <script>
 const filtro=document.querySelector('#ano');
 document.querySelector('#filtro').hidden=false;
@@ -343,10 +411,7 @@ const cmds=document.querySelector('#comandos');cmds.textContent='git clone '+url
     music: document.getElementById("giovanna-theme")
   };
   const hint = document.getElementById("theme-hint");
-  const player = document.getElementById("theme-audio-bar");
-  const playerTitle = document.getElementById("theme-audio-title");
-  const toggle = document.getElementById("theme-audio-toggle");
-  if (!buttons.spider || !buttons.music || !toggle) return;
+  if (!buttons.spider || !buttons.music) return;
 
   let current = null;
   let audioContext = null;
@@ -446,23 +511,12 @@ const cmds=document.querySelector('#comandos');cmds.textContent='git clone '+url
       trackBus = null;
     }
     playing = false;
-    renderAudioControls();
-  }
-
-  function renderAudioControls() {
-    if (player) player.hidden = current === null;
-    if (current && playerTitle) playerTitle.textContent = themes[current].name;
-    toggle.textContent = playing ? "🔇 Pausar trilha" : "♫ Tocar trilha";
-    toggle.setAttribute("aria-pressed", String(playing));
-    toggle.disabled = !AudioContextClass;
-    if (!AudioContextClass && current && playerTitle) {
-      playerTitle.textContent = "Este navegador não suporta áudio gerado pelo site";
-    }
+    
   }
 
   function startSound() {
     if (!current || !AudioContextClass) {
-      renderAudioControls();
+      
       return;
     }
     /* Criado/resumido diretamente após o clique para funcionar no Safari iOS. */
@@ -474,7 +528,7 @@ const cmds=document.querySelector('#comandos');cmds.textContent='git clone '+url
     }
     const bus = audioContext.createGain();
     bus.gain.setValueAtTime(0, audioContext.currentTime);
-    bus.gain.linearRampToValueAtTime(.2, audioContext.currentTime + .23);
+    bus.gain.linearRampToValueAtTime(.025, audioContext.currentTime + .23);
     bus.connect(audioContext.destination);
     trackBus = bus;
     playing = true;
@@ -491,7 +545,7 @@ const cmds=document.querySelector('#comandos');cmds.textContent='git clone '+url
       loopTimer = window.setTimeout(loop, delay);
     }
     loop();
-    renderAudioControls();
+    
   }
 
   function applyTheme(selected) {
@@ -516,22 +570,96 @@ const cmds=document.querySelector('#comandos');cmds.textContent='git clone '+url
           ? "♫ Modo Giovanna ativado! Clique no nome novamente para voltar ao original."
           : "Dica: clique no nome de cada autor para descobrir um tema secreto.";
     }
-    if (current) startSound();
-    renderAudioControls();
+    if (current && !document.body.classList.contains("comfort-mode")) startSound();
+    
+  }
+
+
+  const comfortButton = document.getElementById("comfort-toggle");
+  function setComfort(enabled) {
+    document.body.classList.toggle("comfort-mode", enabled);
+    document.documentElement.classList.toggle("comfort-page", enabled);
+    if (enabled) stopSound();
+    if (comfortButton) {
+      comfortButton.setAttribute("aria-pressed", String(enabled));
+      comfortButton.textContent = enabled ? "Conforto visual ativado ✓" : "Modo conforto visual";
+    }
+  }
+  if (comfortButton) {
+    try { setComfort(window.localStorage.getItem("transporteConforto") === "1"); }
+    catch (_) { setComfort(false); }
+    comfortButton.addEventListener("click", () => {
+      const enabled = !document.body.classList.contains("comfort-mode");
+      setComfort(enabled);
+      try { window.localStorage.setItem("transporteConforto", enabled ? "1" : "0"); } catch (_) {}
+    });
   }
 
   buttons.spider.addEventListener("click", () => applyTheme("spider"));
   buttons.music.addEventListener("click", () => applyTheme("music"));
-  toggle.addEventListener("click", () => {
-    if (!current) return;
-    if (playing) stopSound();
-    else startSound();
-  });
   document.addEventListener("visibilitychange", () => {
     if (document.hidden && playing) stopSound();
   });
   window.addEventListener("pagehide", stopSound);
-  renderAudioControls();
+  
+})();
+</script>
+<script>
+/* Melhora a leitura durante a rolagem e amplia figuras usando dialog nativo. */
+(() => {
+  const dialog = document.getElementById("graph-dialog");
+  const image = document.getElementById("graph-image");
+  const view = document.getElementById("graph-view");
+  const label = document.getElementById("graph-zoom-label");
+  const original = document.getElementById("graph-open-original");
+  const title = document.getElementById("graph-dialog-title");
+  if (dialog && typeof dialog.showModal === "function" && image && view) {
+    let zoom = 1;
+    let lastFocus = null;
+    const updateZoom = () => {
+      image.style.width = Math.round(zoom * 100) + "%";
+      label.textContent = Math.round(zoom * 100) + "%";
+      document.getElementById("graph-zoom-out").disabled = zoom <= 1;
+      document.getElementById("graph-zoom-in").disabled = zoom >= 3;
+    };
+    document.querySelectorAll("a.figure-open").forEach((anchor, index) => {
+      anchor.addEventListener("click", (event) => {
+        event.preventDefault();
+        lastFocus = anchor;
+        zoom = 1;
+        image.src = anchor.getAttribute("href");
+        image.alt = anchor.querySelector("img")?.alt || "Gráfico";
+        title.textContent = "Gráfico " + (index + 1) + " ampliado";
+        original.href = image.src;
+        updateZoom();
+        dialog.showModal();
+        view.scrollTo({left:0,top:0});
+        document.getElementById("graph-dialog-close").focus();
+      });
+    });
+    document.getElementById("graph-zoom-in").addEventListener("click", () => {zoom = Math.min(3,zoom + .5);updateZoom();});
+    document.getElementById("graph-zoom-out").addEventListener("click", () => {zoom = Math.max(1,zoom - .5);updateZoom();});
+    document.getElementById("graph-dialog-close").addEventListener("click", () => dialog.close());
+    dialog.addEventListener("click", (event) => {if (event.target === dialog) dialog.close();});
+    dialog.addEventListener("close", () => {
+      image.removeAttribute("src");
+      if (lastFocus?.isConnected) lastFocus.focus();
+    });
+  }
+  const reducedMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches;
+  if ("IntersectionObserver" in window && !reducedMotion) {
+    const sections = document.querySelectorAll("main > section");
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(({target,isIntersecting}) => {
+        if (isIntersecting) {target.classList.add("is-visible");observer.unobserve(target);}
+      });
+    }, {threshold:.04,rootMargin:"0px 0px -5% 0px"});
+    sections.forEach(section => {
+      section.classList.add("reveal-target");
+      observer.observe(section);
+    });
+    document.documentElement.classList.add("reveals-enabled");
+  }
 })();
 </script>
 </html>
