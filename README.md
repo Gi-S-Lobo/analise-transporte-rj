@@ -11,26 +11,42 @@
 
 ## Resumo executivo
 
-Como mudou o peso dos ônibus no movimento de passageiros do Rio de Janeiro e quais modais recuperaram o volume registrado em 2019? O estudo usa a Tabela 440 do Data.Rio para acompanhar seis séries anuais entre 1995 e 2025. A planilha original foi tratada em Python, mantendo a unidade de milhares de passageiros e as lacunas documentadas para o bonde de Santa Teresa. A comparação combina volumes absolutos, participações em anos com cobertura completa e índices relativos a 2019. Os ônibus mantiveram o maior movimento ao longo da série, mas sua participação caiu de 84,7% em 1995 para 68,1% em 2025. No mesmo intervalo, o metrô passou de 6,0% para 18,9%. Em 2020, todos os modais registraram queda frente ao ano anterior. Em 2025, apenas o bonde e o transporte aeroviário superaram seus volumes de 2019. Os resultados mostram como o crescimento relativo de um modal pode coexistir com um volume ainda inferior ao de anos anteriores. A agregação anual permite descrever essas diferenças, mas impede identificar trajetos individuais ou atribuir as mudanças a uma causa específica.
+Este artigo analisa a evolução do movimento anual de passageiros de seis modais registrados na Tabela 440 do Data.Rio, no município do Rio de Janeiro, entre 1995 e 2025. A pesquisa busca descrever as trajetórias de demanda, a composição do movimento observado e a recuperação frente a 2019. Os dados oficiais foram processados em Python, com verificação de 31 anos, tratamento de três observações ausentes do bonde e construção de indicadores de participação e variação relativa. Os ônibus mantiveram o maior volume, mas sua participação entre os seis modais caiu de 84,7% (1995) para 68,1% (2025); a parcela do metrô passou de 6,0% para 18,9%. Em 2020, todos os modais registraram contração em relação a 2019. Em 2025, apenas o bonde (+72,8%) e o aeroviário (+7,7%) superavam os respectivos volumes de 2019, embora o bonde representasse somente 0,07% do total observado. Eventos como a expansão dos corredores de transporte e as mudanças operacionais fornecem contexto, mas a série agregada não permite atribuir causas às oscilações. Os resultados indicam recuperação heterogênea e recomendam análises complementares de oferta, tarifas e distribuição territorial.
 
 **Palavras-chave** · Mobilidade urbana, transporte de passageiros, Rio de Janeiro, séries temporais, dados abertos.
 
 ## Perguntas e resultados
 
-1. Como evoluiu o volume de passageiros em cada modal?
-2. Como mudou a participação dos modais entre 1995 e 2025?
-3. Quais modais superaram em 2025 o volume de 2019, após a queda de 2020?
+1. **RQ1 — Evolução:** como variou o volume anual em cada modal?
+2. **RQ2 — Composição:** como se alterou a participação de cada modal na soma dos seis sistemas observados entre 1995 e 2025?
+3. **RQ3 — Recuperação:** quais modais superaram em 2025 o próprio volume de 2019 após a queda de 2020?
 
-As duas primeiras colunas numéricas representam a parcela do movimento total dos seis modais no ano. As duas últimas medem a variação percentual do volume de cada modal frente a 2019.
+As duas primeiras colunas numéricas representam a participação na **soma dos seis modais cobertos pela Tabela 440**, não em todas as viagens do Rio. As duas últimas medem a variação percentual frente a 2019. O KPI principal é a participação dos ônibus nessa soma, calculada apenas para anos com os seis registros válidos.
 
 | Modal | 1995 (%) | 2025 (%) | 2020 vs. 2019 (%) | 2025 vs. 2019 (%) |
 |---|---|---|---|---|
 | Ônibus | 84,7 | 68,1 | -45,1 | -33,3 |
 | Metrô | 6,0 | 18,9 | -52,9 | -25,8 |
 | Trem | 7,0 | 9,1 | -40,2 | -45,3 |
-| Bonde | 0,0 | 0,1 | -66,7 | 72,8 |
+| Bonde | 0,01 | 0,07 | -66,7 | 72,8 |
 | Hidroviário | 1,8 | 1,4 | -58,4 | -34,3 |
 | Aeroviário | 0,5 | 2,5 | -57,0 | 7,7 |
+
+> **Interpretação:** o bonde é exibido com duas casas decimais para não arredondar sua participação a zero. Os resultados foram calculados a partir dos 31 anos da base (1995–2025); em 2012–2014, o bonde está ausente, de modo que a composição conjunta daqueles anos não é calculada.
+
+## Contextualização e discussão
+
+A expansão do metrô, incluindo a Linha 4 em 2016 ([MetrôRio](https://metrorio.com.br/25anos)), e a implantação dos corredores BRT Transoeste, Transcarioca e Transolímpica ([Prefeitura do Rio — Legado Olímpico](https://prefeitura-rio.github.io/LegadoOlimpico2/)) compõem o contexto de transformação da infraestrutura urbana. O [histórico do bonde de Santa Teresa](https://cbn.globoradio.globo.com/institucional/historia/aniversario/cbn-25-anos/boletins/2016/07/21/2011-BONDINHO-DE-SANTA-TERESA-TOMBA-E-DEIXA-SEIS-MORTOS.htm?v=classica) documenta a interrupção em 2011 e a retomada parcial em 2015. A [Organização Mundial da Saúde](https://www.who.int/news-room/speeches/item/who-director-general-s-opening-remarks-at-the-media-briefing-on-covid-19---11-march-2020) registrou a pandemia de COVID-19 em 2020; em 2022, a [Secretaria Municipal de Transportes](https://transportes.prefeitura.rio/noticias/prefeitura-do-rio-assina-acordo-judicial-para-a-melhoria-do-transporte-feito-por-onibus-na-cidade/) documentou um acordo de reorganização e subsídios para os ônibus.
+
+Esses eventos **oferecem contexto**, mas não são causas comprovadas das variações de volume. Como indica a literatura sobre [deslocamentos pendulares metropolitanos](https://doi.org/10.1590/2236-9996.2023-5711), fatores territoriais e sociais exigem outros dados para uma interpretação explicativa.
+
+### Conclusões para as três perguntas
+
+- **RQ1:** os ônibus mantiveram o maior volume anual da série; o metrô apresentou crescimento em termos absolutos entre os extremos do período.
+- **RQ2:** a participação dos ônibus nos seis sistemas caiu de 84,7% para 68,1% (−16,6 pontos percentuais), enquanto a do metrô passou de 6,0% para 18,9% (+12,9 p.p.).
+- **RQ3:** em 2025, apenas o bonde e o aeroviário haviam ultrapassado seus volumes de 2019; o trem estava 45,3% abaixo.
+
+O artigo apresenta a discussão detalhada e as **nove referências bibliográficas organizadas no padrão APA**, enquanto o notebook documenta a EDA, os cálculos e suas limitações.
 
 ## Fonte e acesso
 
@@ -83,4 +99,4 @@ Envie o conteúdo da pasta do projeto para a raiz de um repositório público ch
 
 ## Reutilização e limites
 
-O [código usa a licença MIT](LICENSE). Para o texto e as figuras de autoria da dupla, aplica-se [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), com atribuição aos autores e à fonte. Para os dados originais e seus valores derivados, consulte as condições do provedor. A planilha anexada não informa uma licença específica. Os totais medem movimento de passageiros e podem contar a mesma pessoa em diferentes viagens ou modais.
+O [código usa a licença MIT](LICENSE). Para o texto e as figuras de autoria da dupla, aplica-se [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), com atribuição aos autores e à fonte. Para os dados originais e seus valores derivados, consulte as condições do provedor. A planilha anexada não informa uma licença específica. Os totais medem movimento de passageiros e podem contar a mesma pessoa em diferentes viagens ou modais. A fonte não é um censo de todas as viagens urbanas, não cobre vans e kombis, não informa passageiros únicos e não separa BRT em uma série independente. O conjunto anual tampouco permite inferir causalidade entre alterações de infraestrutura, pandemia ou decisões tarifárias e os volumes observados.
